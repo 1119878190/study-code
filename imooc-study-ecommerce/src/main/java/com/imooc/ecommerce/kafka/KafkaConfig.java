@@ -72,7 +72,7 @@ public class KafkaConfig {
         // 最多拉去50条记录
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 50);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
         return new DefaultKafkaConsumerFactory<>(props);
     }

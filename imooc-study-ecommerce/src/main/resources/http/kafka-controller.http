@@ -1,0 +1,8 @@
+### kafka-send-message
+GET http://127.0.0.1:8001/imooc-study-ecommerce-dev/kafka/send-message?key=lafe&topic=test-springboot
+Content-Type: application/json
+
+
+### kafka-send-message
+GET http://localhost:8001/imooc-study-ecommerce-dev/kafka/send-message?topic=test-springboot
+Content-Type: application/json
