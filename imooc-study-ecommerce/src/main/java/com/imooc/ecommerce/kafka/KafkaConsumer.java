@@ -13,6 +13,8 @@ import java.util.Optional;
 /**
  * <h1>Kafka 消费者</h1>
  *
+ * @注意：kafka确保每个partition只能同一个group中的一个consumer消费，如果想要重复消费，那么需要其他的组来消费。
+ *
  * @Author: lafe
  * @DateTime: 2022/7/6 20:25
  **/

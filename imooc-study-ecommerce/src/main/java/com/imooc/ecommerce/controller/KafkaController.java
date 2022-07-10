@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imooc.ecommerce.kafka.KafkaProducer;
 import com.imooc.ecommerce.vo.TestMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,9 +34,10 @@ public class KafkaController {
     /**
      * <h2>发送 kafka 消息</h2>
      *
-     * @param key  key用来kafka分区，可以不用传
+     * @param key   key用来kafka分区，可以不用传
      * @param topic
      * @throws Exception
+     * @注意：kafka确保每个partition只能同一个group中的一个consumer消费，如果想要重复消费，那么需要其他的组来消费。
      */
     @GetMapping("/send-message")
     public void sendMessage(@RequestParam(required = false) String key,
