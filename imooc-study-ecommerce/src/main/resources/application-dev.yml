@@ -16,3 +16,10 @@ spring:
 #    producer:
 #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
 #      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+# RocketMQ 的配置, 这是最低配置
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    # 发送同一类消息的设置为同一个 group, 保证唯一
+    group: imooc-study-ecommerce
