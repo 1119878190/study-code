@@ -36,9 +36,9 @@ public class RocketMQProducer {
 
 
     /**
-     * <h2>使用同步的那个是发送消息 ，不指定 key 和 value </h2>
+     * <h2>使用同步的方式发送消息 ，不指定 key </h2>
      *
-     * @param value
+     * @param value 消息值
      */
     public void sendMessageWithValue(String value) {
 
@@ -55,10 +55,10 @@ public class RocketMQProducer {
     /**
      * <h2>使用异步方式发送消息，指定 key</h2>
      *
-     * @param value
-     * @param key   不是用于分区的hashKey，而是用于查询消息的key
+     * @param value 消息值
+     * @param key   不是用于分区的hashKey，而是用于查询消息的key,类似于消息的id
      */
-    public void sendMessageWithKey(String value, String key) {
+    public void sendMessageWithKey(String key, String value) {
 
         Message<String> message = MessageBuilder.withPayload(value)
                 .setHeader(RocketMQHeaders.KEYS, key).build();
@@ -81,8 +81,8 @@ public class RocketMQProducer {
     /**
      * <h2>使用同步的方式发送消息，带有 tag ，且发送的是 java Pojo </h2>
      *
-     * @param tag
-     * @param value
+     * @param tag   标签（需要在消费中配置 selectorExpression ）
+     * @param value 消息值
      */
     public void sendMessageWithTag(String tag, String value) {
 
@@ -98,9 +98,9 @@ public class RocketMQProducer {
     /**
      * <h2>使用同步的方式发送消息，带有 key 和 tag</h2>
      *
-     * @param key
-     * @param tag
-     * @param value
+     * @param key   消息id
+     * @param tag   标签
+     * @param value 消息值
      */
     public void sendMessageWithAll(String key, String tag, String value) {
         Message<String> message = MessageBuilder.withPayload(value)

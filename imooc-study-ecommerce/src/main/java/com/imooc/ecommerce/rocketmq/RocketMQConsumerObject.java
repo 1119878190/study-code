@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @RocketMQMessageListener(
         topic = "imooc-study-rocketmq",
         consumerGroup = "lafe-springboot-rocketmq-tag-object",
-        selectorExpression = "lafe"  // 根据 tag 过滤
+        selectorExpression = "lafe-tag"  // 根据 tag 过滤
 )
 public class RocketMQConsumerObject implements RocketMQListener<TestMessage> {
 

@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8004
   servlet:
     context-path: /imooc-study-ecommerce-dev
 
@@ -19,7 +19,7 @@ spring:
 
 # RocketMQ 的配置, 这是最低配置
 rocketmq:
-  name-server: 127.0.0.1:9876
+  name-server: 192.168.218.129:9876
   producer:
     # 发送同一类消息的设置为同一个 group, 保证唯一
     group: imooc-study-ecommerce
