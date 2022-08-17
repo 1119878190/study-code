@@ -1,0 +1,8 @@
+### wrong-rollback-for
+GET http://127.0.0.1:8081/transactional-lose/wrong-rollback-for
+Content-Type: application/json
+
+
+### wrong-inser-call
+GET http://127.0.0.1:8081/transactional-lose/wrong-inner-call
+Content-Type: application/json
