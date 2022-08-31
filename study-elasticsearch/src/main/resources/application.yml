@@ -1,0 +1,14 @@
+elasticsearch:
+  data:
+    source:
+      connect_timeout_millis: 8000
+      connection_request_timeout_millis: 8000
+      uris:
+        - http://172.30.4.15:9200
+      max_connect_per_route: 300
+      max_connect_total: 900
+      password: ''
+      replicas: 2
+      shards: 3
+      socket_timeout_millis: 60000
+      username: ''

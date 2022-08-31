@@ -13,6 +13,7 @@
         <module>imooc-study-ecommerce</module>
         <module>file_read</module>
         <module>common</module>
+        <module>study-elasticsearch</module>
     </modules>
 
     <properties>
