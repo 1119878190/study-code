@@ -1,5 +1,7 @@
 package com.study.studyes.simplequery;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.studycode.studyes.StudyESApplication;
 import com.studycode.studyes.entity.Accountopeninfo;
@@ -24,6 +26,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,14 +48,15 @@ public class TestSimpleQuery {
     /**
      * 无条件查询全部  相当于 select * from tldw_accountopeninfo;
      * 注意：如果不加size，默认时10条数据
-     *  GET /tldw_banktransactionflow/_search
+     * GET /tldw_banktransactionflow/_search
      * {
-     *   "query": {
-     *     "match_all": {
-     *
-     *     }
-     *   }
+     * "query": {
+     * "match_all": {
+     * <p>
      * }
+     * }
+     * }
+     *
      * @throws IOException
      */
     @Test
@@ -76,18 +80,17 @@ public class TestSimpleQuery {
 
     /**
      * 条件查询，单个条件， 相当于  select *  where query_card = 6222621310025084423
-     *
-     *GET /tldw_banktransactionflow/_search
+     * <p>
+     * GET /tldw_banktransactionflow/_search
      * {
-     *   "query": {
-     *     "term": {
-     *       "query_card": {
-     *         "value": "6222621310025084423"
-     *       }
-     *     }
-     *   }
+     * "query": {
+     * "term": {
+     * "query_card": {
+     * "value": "6222621310025084423"
      * }
-     *
+     * }
+     * }
+     * }
      *
      * @throws IOException
      */
@@ -97,7 +100,7 @@ public class TestSimpleQuery {
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
-        searchSourceBuilder.query(QueryBuilders.termQuery("query_card","6222621310025084423"));
+        searchSourceBuilder.query(QueryBuilders.termQuery("query_card", "6222621310025084423"));
 
         searchRequest.source(searchSourceBuilder);
         searchRequest.indices("tldw_banktransactionflow");
@@ -113,31 +116,30 @@ public class TestSimpleQuery {
     /**
      * 多条件 and 查询
      * select * tldw_banktransactionflow where query_card = 6222621310025084423 and transaction_opposite_name = 朱武彪
-     *
+     * <p>
      * GET /tldw_banktransactionflow/_search
      * {
-     *   "query": {
-     *     "bool": {
-     *       "must": [
-     *         {
-     *           "term": {
-     *             "query_card": {
-     *               "value": "6222621310025084423"
-     *             }
-     *           }
-     *         },
-     *         {
-     *           "term": {
-     *             "transaction_opposite_name": {
-     *               "value": "朱武彪"
-     *             }
-     *           }
-     *         }
-     *       ]
-     *     }
-     *   }
+     * "query": {
+     * "bool": {
+     * "must": [
+     * {
+     * "term": {
+     * "query_card": {
+     * "value": "6222621310025084423"
      * }
-     *
+     * }
+     * },
+     * {
+     * "term": {
+     * "transaction_opposite_name": {
+     * "value": "朱武彪"
+     * }
+     * }
+     * }
+     * ]
+     * }
+     * }
+     * }
      */
     @Test
     public void andConditionsQuery() throws IOException {
@@ -217,16 +219,13 @@ public class TestSimpleQuery {
 
 
     /**
-     *  and or 联合查询
-     *
+     * and or 联合查询
+     * <p>
      * select * from tldw_banktransactionflow
      * where case_id = ”62c63c2056d42f6e35b10a16“ and ( loan_flag = "xxx" or cash_flag = "xxx")
-     *
-     *  关于booleanQuery的使用注意：must语句都需要匹配，而所有的must_not语句都不能匹配，
-     *  但是should语句需要匹配多少个呢？默认情况下，should语句一个都不要求匹配，只有一个特例：如果查询中没有must语句，那么至少要匹配一个should语句。
-     *
-     *
-     *
+     * <p>
+     * 关于booleanQuery的使用注意：must语句都需要匹配，而所有的must_not语句都不能匹配，
+     * 但是should语句需要匹配多少个呢？默认情况下，should语句一个都不要求匹配，只有一个特例：如果查询中没有must语句，那么至少要匹配一个should语句。
      */
     @Test
     public void andOrConditionsQuery() throws IOException {
@@ -234,7 +233,7 @@ public class TestSimpleQuery {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-        boolQueryBuilder.must(QueryBuilders.termQuery("case_id","62c63c2056d42f6e35b10a16"));
+        boolQueryBuilder.must(QueryBuilders.termQuery("case_id", "62c63c2056d42f6e35b10a16"));
 
         List<QueryBuilder> should = boolQueryBuilder.should();
         should.add(QueryBuilders.termQuery("loan_flag", "随便输入"));
@@ -260,9 +259,8 @@ public class TestSimpleQuery {
 
     /**
      * 聚合，分组
-     *
+     * <p>
      * select * from tldw_banktransactionflow group by resource_id
-     *
      */
     @Test
     public void aggregation() throws IOException {
@@ -287,6 +285,74 @@ public class TestSimpleQuery {
             String keyAsString = bucket.getKeyAsString();
             log.info(keyAsString);
         }
+    }
+
+
+    /**
+     * 大于等于
+     * <p>
+     * {
+     * "query": {
+     * "bool": {
+     * "filter": [
+     * {
+     * "range": {
+     * "transaction_money": {
+     * "gte": 10000000
+     * }
+     * }
+     * }
+     * ]
+     * }
+     * }
+     * }
+     *
+     * @throws IOException
+     */
+    @Test
+    public void range() throws IOException {
+        SearchRequest searchRequest = new SearchRequest();
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+
+        List<QueryBuilder> should = boolQueryBuilder.should();
+        should.add(QueryBuilders.termQuery("query_card", "6222621310025084423"));
+        should.add(QueryBuilders.termQuery("cash_flag", "其它"));
+
+        // 范围查询  大于等于
+        boolQueryBuilder.filter(QueryBuilders.rangeQuery("transaction_money").gte("100000"));
+
+        searchSourceBuilder.query(boolQueryBuilder);
+        searchRequest.source(searchSourceBuilder);
+        searchRequest.indices("tldw_banktransactionflow");
+
+        SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        SearchHit[] hits = search.getHits().getHits();
+        for (SearchHit hit : hits) {
+            BankTransactionFlow bankTransactionFlow = JSON.parseObject(hit.getSourceAsString(), BankTransactionFlow.class);
+            log.info(hit.getSourceAsString());
+        }
+    }
+
+
+    @Test
+    public void test() {
+        System.out.println("===============between==============");
+        String dateStr1 = "22:33:23";
+        String dataStr2 = "20:00";
+        String dataStr3 = "21:34";
+        String datastr4 = "21:03";
+
+        DateTime parse = DateUtil.parse(datastr4);
+        Date current = new Date();
+
+        System.out.println(DateUtil.hour(parse, true));
+        System.out.println(DateUtil.minute(parse));
+
+
+        String a = "00";
+        System.out.println(Integer.parseInt(a));
     }
 
 
