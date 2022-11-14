@@ -1,4 +1,4 @@
-package com.study.studyJUC;
+package com.study.studyJUC.completablefuture;
 
 import java.util.concurrent.*;
 
@@ -39,15 +39,19 @@ public class CompletableFutureDemo {
             } catch (InterruptedException exception) {
                 exception.printStackTrace();
             }
+           // int i = 10 / 0;
             return 1;
         }).thenApply(f -> {
-            //
+            // 需要上面的结果，做完上面的任务再做该任务
             return f + 2;
         }).whenComplete((v, e) -> {
+            // 不管是否异常 都进来
+            System.out.println("whenComplete");
             if (e == null) {
                 System.out.println("-----result------" + v);
             }
         }).exceptionally(throwable -> {
+            System.out.println("exceptionally");
             throwable.printStackTrace();
             return null;
         });
@@ -58,7 +62,7 @@ public class CompletableFutureDemo {
         System.out.println("------------main end---------");
 
         // 错误代码 只是为了让主线程不立刻结束，看到 whenComplete的结果
-//        Thread.sleep(3000);
+        Thread.sleep(4000);
 
         // 总结： 如果想要方法结束时返回执行的结果，那就需要阻塞等待执行get，如果想要后台执行，并不需要返回,那就不用get
     }
