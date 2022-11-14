@@ -3,10 +3,7 @@ package com.studycode.controller;
 import com.studycode.config.MinioEntity;
 import com.studycode.util.MinioUtil;
 import org.springframework.util.FastByteArrayOutputStream;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -77,4 +74,17 @@ public class UploadController {
         }
     }
 
+
+    @GetMapping("/getUrl")
+    public String getFileUrl(@RequestParam("objectName")String objectName)  {
+        String preSignedObjectUrl = null;
+
+        try {
+            preSignedObjectUrl = MinioUtil.getPreSignedObjectUrl(minioEntity.getBucketName(), objectName);
+        } catch (Exception e) {
+
+        }
+
+        return preSignedObjectUrl;
+    }
 }

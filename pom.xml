@@ -17,6 +17,7 @@
         <module>study-minio</module>
         <module>study-slice-upload</module>
         <module>study-JUC</module>
+        <module>study-dataStructure</module>
     </modules>
 
     <properties>
