@@ -1,0 +1,2 @@
+## spring定时任务
+在没有引入第三方任务调度,通过spring提供的 SchedulingConfigurer 和 ScheduledTaskRegistrar 实现对定时任务的增删改

@@ -18,6 +18,7 @@
         <module>study-slice-upload</module>
         <module>study-JUC</module>
         <module>study-dataStructure</module>
+        <module>study-scheduleTask</module>
     </modules>
 
     <properties>
