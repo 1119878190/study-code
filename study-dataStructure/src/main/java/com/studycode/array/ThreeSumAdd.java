@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @Author: lx
  * @Date: 2022/11/15
- * @Description: 三数之和  题号 #15
+ * @Description: 三数之和  题号 #15   15. 三数之和 https://link.juejin.cn/?target=https%3A%2F%2Fleetcode-cn.com%2Fproblems%2F3sum%2F
  * <p>
  * 给定一个包含 n 个整数的数组nums，判断nums中是否存在三个元素 a，b，c ，使得a + b + c = 0 ？找出所有满足条件且不重复的三元组。
  * 注意：答案中不可以包含重复的三元组。
@@ -50,7 +50,7 @@ public class ThreeSumAdd {
                 break;
             }
             if (i > 0 && nums[i] == nums[i - 1]) {
-                // i > 0且nums[i] == nums[i - 1]时，即遇到重复元素时，跳过此元素nums[i]：因为已经将 nums[i - 1] 的所有组合加入到结果中，本次双指针搜索只会得到重复组合。
+                //去重 i > 0且nums[i] == nums[i - 1]时，即遇到重复元素时，跳过此元素nums[i]：因为已经将 nums[i - 1] 的所有组合加入到结果中，本次双指针搜索只会得到重复组合。
                 continue;
             }
 
@@ -64,17 +64,20 @@ public class ThreeSumAdd {
                 int sumResult = nums[left] + nums[right] + currentNum;
                 if (sumResult == 0) {
                     result.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                    // 移动两个指针
+
+
+                    // 去重 判断两个指针的前后值是否一样，一样的话继续移动指针
+                    while (left < right && nums[left] == nums[left+1]) {
+                        left++;
+                    }
+                    while (left < right && nums[right] == nums[right - 1]) {
+                        right--;
+                    }
+
+                    //找到结果，双指针同时移动
                     left++;
                     right--;
 
-                    // 判断两个指针的前后值是否一样，一样的话继续移动指针
-                    while (left < right && nums[left - 1] == nums[left]) {
-                        left++;
-                    }
-                    while (left < right && nums[right] == nums[right + 1]) {
-                        right--;
-                    }
                 } else if (sumResult < 0) {
                     left++;
                 } else {
