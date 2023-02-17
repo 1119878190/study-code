@@ -47,6 +47,7 @@ public class DynamicTask implements SchedulingConfigurer {
     @Override
     public void configureTasks(ScheduledTaskRegistrar registrar) {
         this.registrar = registrar;
+        System.out.println("=============out==================");
         this.registrar.addTriggerTask(() -> {
                     System.out.println("coming configureTasks");
                     if (!CollectionUtils.isEmpty(taskConstants)) {
@@ -68,7 +69,7 @@ public class DynamicTask implements SchedulingConfigurer {
                         }
                     }
                 }
-                // triggerContext 是用来定时调用 configureTasks 这个方法的
+                // triggerContext 是用来定时调用 addTriggerTask 这个方法的
                 , triggerContext -> new PeriodicTrigger(5L, TimeUnit.SECONDS).nextExecutionTime(triggerContext));
 
 
