@@ -19,6 +19,7 @@
         <module>study-JUC</module>
         <module>study-dataStructure</module>
         <module>study-scheduleTask</module>
+        <module>study-mongodb</module>
     </modules>
 
     <properties>
