@@ -20,6 +20,7 @@
         <module>study-dataStructure</module>
         <module>study-scheduleTask</module>
         <module>study-mongodb</module>
+        <module>study-netty</module>
     </modules>
 
     <properties>
