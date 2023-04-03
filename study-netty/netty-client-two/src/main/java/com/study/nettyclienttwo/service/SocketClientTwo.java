@@ -46,7 +46,8 @@ public class SocketClientTwo {
     @SneakyThrows
     public void start(String ip, Integer port) {
         this.init();
-        ChannelFuture future = this.bootstrap.connect(ip, port).sync();
+        //ChannelFuture future = this.bootstrap.connect(ip, port).sync();
+        ChannelFuture future = this.bootstrap.connect(ip, port);
         channel = future.channel();
         // 心跳检测
         //while (channel.isActive()) {

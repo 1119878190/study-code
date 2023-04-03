@@ -19,7 +19,6 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("client" + ctx);
-        //ctx.writeAndFlush(Unpooled.copiedBuffer("hello,server:喵", CharsetUtil.UTF_8));
 
         String content = "hello 服务端，这是我们第一次链接,我是客户端111";
         int length = content.getBytes().length;

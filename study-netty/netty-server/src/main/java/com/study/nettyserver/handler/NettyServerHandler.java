@@ -62,7 +62,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
      */
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-        log.info("新的客户端链接：" + ctx.channel().id().asShortText());
+        log.info("新的客户端链接：" + ctx.channel().id().asLongText());
 
         ChannelMap.getChannelMap().put(ctx.channel().id().asLongText(), ctx.channel());
 
@@ -71,6 +71,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        log.info("客户端:" + ctx.channel().id().asLongText() + "断开链接");
         ChannelMap.getChannelMap().remove(ctx.channel().id().asLongText());
     }
 

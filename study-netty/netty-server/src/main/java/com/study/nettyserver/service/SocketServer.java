@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -49,7 +50,7 @@ public class SocketServer {
     @SneakyThrows
     public void start() {
         this.init();
-        channel = this.serverBootstrap.bind(this.port).sync().channel();
+        this.serverBootstrap.bind(this.port);
         log.info("Netty server started on port: {} (TCP)", this.port);
     }
 
@@ -65,12 +66,29 @@ public class SocketServer {
     }
 
 
-
+    /**
+     * 发送消息到全部的channel
+     *
+     * @param message 消息
+     */
     public void sendMessage(Message message){
         ConcurrentHashMap<String, Channel> channelMap = ChannelMap.getChannelMap();
         for (Map.Entry<String, Channel> stringChannelEntry : channelMap.entrySet()) {
             Channel value = stringChannelEntry.getValue();
             value.writeAndFlush(message);
+        }
+
+    }
+
+    /**
+     * 发送消息到全部的channel
+     *
+     * @param message 消息
+     */
+    public void sendMessageByChannel(Message message,String channelId){
+        Channel channel = ChannelMap.getChannel(channelId);
+        if (Objects.nonNull(channel)){
+            channel.writeAndFlush(message);
         }
 
     }
