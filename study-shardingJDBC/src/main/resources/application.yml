@@ -1,0 +1,40 @@
+spring:
+  main:
+    #当遇到同样名字的时候，是否允许覆盖注册
+    allow-bean-definition-overriding: true
+  shardingsphere:
+    datasource:
+      # 给每个数据源取别名 数据库的真实库名为 shardingjdbc_0,shardingjdbc_1
+      names: shardingjdbc0,shardingjdbc1
+      shardingjdbc0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://localhost:3306/shardingjdbc_0?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: 123456
+      shardingjdbc1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://localhost:3306/shardingjdbc_1?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: 123456
+    sharding:
+      default-data-source-name: shardingjdbc0
+      tables:
+        # 逻辑表名
+        book:
+          key-generator-column-name: id  #主键
+          actual-data-nodes: shardingjdbc${0..1}.book_${0..1}    #数据节点,均匀分布
+          database-strategy: #分库策略
+            inline: #行表达式
+              sharding-column: id        #列名称，多个列以逗号分隔
+              algorithm-expression: shardingjdbc${id % 2}    #按id模运算分配
+          table-strategy: #分表策略
+            inline: #行表达式
+              sharding-column: stock
+              algorithm-expression: book_${stock % 2}
+    props:
+      sql:
+        show: true
+
+

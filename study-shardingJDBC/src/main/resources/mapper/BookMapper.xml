@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.shardingjdbc.mapper.BookDao">
+
+    <select id="pageQuery" resultType="com.study.shardingjdbc.model.entity.Book">
+
+    select * from book  order by stock desc limit #{start},#{pageSize}
+    </select>
+
+    <select id="pageQueryNoShardingColumn" resultType="com.study.shardingjdbc.model.entity.Book">
+        select * from book order by create_date  limit #{start},#{pageSize}
+    </select>
+</mapper>
