@@ -20,8 +20,8 @@ public class ServerSocketChannel extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
         pipeline.addLast(new LoggingHandler(LogLevel.INFO));
-        pipeline.addLast(new MessageDecodeHandler());
-        pipeline.addLast(new MessageEncodeHandler());
+        pipeline.addLast("MessageDecodeHandler",new MessageDecodeHandler());
+        pipeline.addLast("MessageEncodeHandler",new MessageEncodeHandler());
         // 加入 netty 提供的 IdleStateHandler 用于心跳
                             /*
                             1.IdleStateHandler 是 netty 提供的处理空闲状态的处理器

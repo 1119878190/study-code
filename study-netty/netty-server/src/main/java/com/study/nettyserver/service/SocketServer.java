@@ -61,6 +61,7 @@ public class SocketServer {
         this.serverBootstrap = new ServerBootstrap();
         this.serverBootstrap.group(bossGroup, workerGroup) // 两个线程组加入进来
                 .channel(NioServerSocketChannel.class)  // 配置为nio类型
+                .option(ChannelOption.SO_BACKLOG, 128)
                 .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childHandler(new ServerSocketChannel()); // 加入自己的初始化器
     }
