@@ -27,4 +27,10 @@ public class ChannelMap {
     public static Channel getChannel(String id) {
         return getChannelMap().get(id);
     }
+
+    public static void main(String[] args) {
+
+
+
+    }
 }

@@ -23,6 +23,8 @@
         <module>study-netty</module>
         <module>study-shardingJDBC</module>
         <module>study-seata</module>
+        <module>study-toPDF</module>
+        <module>study-toWord</module>
     </modules>
 
     <properties>
