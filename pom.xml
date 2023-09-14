@@ -26,6 +26,7 @@
         <module>study-toPDF</module>
         <module>study-toWord</module>
         <module>study-rocketmq</module>
+        <module>study-rocketmq-boot</module>
     </modules>
 
     <properties>

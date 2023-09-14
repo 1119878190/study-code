@@ -1,0 +1,7 @@
+rocketmq:
+  name-server: 172.30.6.157:9876     # rocketMq的nameServer地址
+  producer:
+    group: boot-producer-group       # 生产者组别
+    send-message-timeout: 3000  # 消息发送的超时时间
+    retry-times-when-send-async-failed: 2  # 异步消息发送失败重试次数
+    max-message-size: 4194304       # 消息的最大长度
