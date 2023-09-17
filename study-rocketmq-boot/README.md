@@ -1,0 +1,1 @@
+官方整合springboot示例：https://github.com/apache/rocketmq-spring/tree/master/rocketmq-spring-boot-samples

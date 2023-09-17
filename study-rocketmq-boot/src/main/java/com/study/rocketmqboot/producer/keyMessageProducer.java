@@ -7,7 +7,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.UUID;
 
@@ -24,7 +23,7 @@ public class keyMessageProducer {
     @Resource
     private RocketMQTemplate rocketMQTemplate;
 
-    @PostConstruct
+//    @PostConstruct
     public void producer() {
         // 发送带有key的消息
         String key = UUID.randomUUID().toString();
