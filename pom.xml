@@ -25,6 +25,7 @@
         <module>study-seata</module>
         <module>study-toPDF</module>
         <module>study-toWord</module>
+        <module>study-springsecurity-simple</module>
     </modules>
 
     <properties>
